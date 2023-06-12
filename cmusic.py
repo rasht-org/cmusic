@@ -1,29 +1,34 @@
 from rich import print
-from requests import get
 from dotenv import dotenv_values
-from json import decoder
+from adapters.lyricsify_adapter import LyricsifyAdapter
 
+
+# Load main config
 config = dotenv_values(".env")
+config['DEBUG'] = (config['DEBUG'] == "True")
+urlAdapters = [
+    LyricsifyAdapter()
+]
 
-config['DEBUG'] = (config['DEBUG'] == "true")
-urls_file = open('urls.json')
-with open('urls.json'):
-    print()
-urls = decoder(urls_file)
-print("urls", urls)
 
+# Read music name from user input
 def select_music():
-    # Get search keyword
     print("[bold magenta]CMusic script[/bold magenta]", "[bold red]| Debug[/bold red]" if config['DEBUG'] else "")
     print("please input music title or artist name to search:")
         
     if config['DEBUG'] : search_term = 'as it was'
     else: search_term = input()
     print("[yellow]searching for %s ...[/yellow]" % search_term)
+    return search_term
 
 
+# Search for music lyric in websites
 def search_for_music(keyword):
-    pass
+    found = []
+    for adapter in urlAdapters:
+        lyrics = adapter.searchLyrics(keyword=keyword)
+        print(lyrics)
+    
 
 def main():
     term = select_music()
