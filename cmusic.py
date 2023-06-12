@@ -4,6 +4,7 @@ from adapters.lyricsify_adapter import LyricsifyAdapter
 from pick import pick
 from classes.project import Project
 import json
+import os
 
 
 # Load main config
@@ -50,14 +51,23 @@ def additional_prompts():
             lyric.append_positives(possitives)
         if len(negatives) > 0:
             lyric.append_negatives(negatives)
+    print("[cyan]Output video frames per second (default: 15 fps):")
+    fps = input()
+    if fps:
+        fps = int(fps)
+        if fps > 0:
+            project.fps = fps
             
 def save():
     if lyric:
-        file = 'export/' + lyric.name + '.json'
-        with open(file, 'w') as file:
+        if not os.path.exists('export/'):
+            os.makedirs('export/')
+        file_name = 'export/' + lyric.name + '.json'
+        with open(file_name, 'w') as file:
             prompts = lyric.__json__()
             transformed_prompts = project.transform(prompts=prompts)
             file.write(json.dumps(transformed_prompts, indent=4, sort_keys=True))
+            print('[bold green]Your file is saved at %s[/bold green]' % file_name)
             file.close()
             
 
