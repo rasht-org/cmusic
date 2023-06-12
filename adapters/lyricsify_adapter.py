@@ -45,6 +45,10 @@ class LyricsifyAdapter(UrlAdapter):
                 for lyric_line in lyric_lines:
                     if (re.match(r'\[\d{2}:\d{2}.\d{2}\]', lyric_line)):
                         pack = lyric_line.split(']')
+                        
+                        if re.match(r'\[\d{2}:\d{2}.\d{2}', pack[1]) or re.match(r'Artist:', pack[1]) or re.match(r'Title:', pack[1]):
+                            continue
+                        
                         timestr = pack[0].replace('[', '')
                         time_parts = timestr.split(':')
                         # second_parts = time_parts[1].split('.')

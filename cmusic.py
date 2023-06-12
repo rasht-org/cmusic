@@ -21,8 +21,7 @@ def select_music():
     print("[bold magenta]CMusic script[/bold magenta]", "[bold red]| Debug[/bold red]" if config['DEBUG'] else "")
     print("please input music title or artist name to search:")
         
-    if config['DEBUG'] : search_term = 'as it was'
-    else: search_term = input()
+    search_term = input()
     print("[yellow]searching for %s ...[/yellow]" % search_term)
     return search_term
 
