@@ -25,6 +25,7 @@ class Project:
     def transform(self, prompts):
         transformed_prompts = {}
         for (index, value) in enumerate(prompts):
-            time = round(float(value) * self.fps)
-            transformed_prompts[time + self.frameShift] = prompts[value]
+            time = round(float(value) * self.fps) + self.frameShift
+            if time < 0: time = 0
+            transformed_prompts[time] = prompts[value]
         return transformed_prompts
