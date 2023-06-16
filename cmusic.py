@@ -57,12 +57,18 @@ def additional_prompts():
         fps = int(fps)
         if fps > 0:
             project.fps = fps
+    print("[cyan]Shift frames, number of frames to shift starting frame of each lyric line (default: -5 frames):")
+    shift = input()
+    if shift:
+        shift = int(shift)
+        project.fps = fps
+            
             
 def save():
     if lyric:
         if not os.path.exists('export/'):
             os.makedirs('export/')
-        file_name = 'export/' + lyric.name + '.json'
+        file_name = 'export/' + lyric.name.replace(':', '-').replace('.', '-') + '.json'
         with open(file_name, 'w') as file:
             prompts = lyric.__json__()
             transformed_prompts = project.transform(prompts=prompts)

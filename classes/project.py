@@ -1,6 +1,8 @@
 class Project:
     
     name: str
+    # Number of frames to shift each lyric line
+    frameShift: int
     # Number of frames per second
     fps: int
     # Start from frame
@@ -14,6 +16,7 @@ class Project:
     
     def __init__(self) -> None:
         self.fps = 15
+        self.frameShift = -5
         self.start_frame = 0
         self.end_frame = -1
         self.prompts = {}
@@ -23,5 +26,5 @@ class Project:
         transformed_prompts = {}
         for (index, value) in enumerate(prompts):
             time = round(float(value) * self.fps)
-            transformed_prompts[time] = prompts[value]
+            transformed_prompts[time + self.frameShift] = prompts[value]
         return transformed_prompts
