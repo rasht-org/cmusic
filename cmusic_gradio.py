@@ -84,7 +84,7 @@ with gr.Blocks(title='CMusic Script') as blocks:
     )
     
     with gr.Tab("Find lyric"):
-        name_input = gr.Textbox(label='Music title or artist name', value='Call me maybe')
+        name_input = gr.Textbox(label='Music title or artist name')
         search_button = gr.Button("Search")
         music_options = gr.Dropdown(['Use search to find music lyrics first ...'], label="Searched music lyrics")
         fetch_button = gr.Button("Fetch selected lyric")
