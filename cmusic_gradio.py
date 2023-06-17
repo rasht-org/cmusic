@@ -109,4 +109,4 @@ with gr.Blocks(title='CMusic Script') as blocks:
     fetch_button.click(fetch_music, inputs=music_options, outputs=[lyric_output, lyric_input])
     generate_button.click(generate_prompt, inputs=[lyric_input, lyric_type_input, fps_input, shift_input, positives_input, negatives_input], outputs=prompt_output)
         
-blocks.launch()
+blocks.launch(share=True)
