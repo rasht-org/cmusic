@@ -43,10 +43,14 @@ class LyricsifyAdapter(UrlAdapter):
                 lyric_text = lyric_element.text
                 lyric_lines = lyric_text.split('\n')
                 for lyric_line in lyric_lines:
-                    if (re.match(r'\[\d{2}:\d{2}.\d{2}\]', lyric_line)):
+                    if (re.match(r'\[\d{2}:\d{2}.[0-9]+\]', lyric_line)):
                         pack = lyric_line.split(']')
                         
-                        if re.match(r'\[\d{2}:\d{2}.\d{2}', pack[1]) or re.match(r'Artist:', pack[1]) or re.match(r'Title:', pack[1]):
+                        if re.match(r'\[\d{2}:\d{2}.[0-9]+', pack[1]) or re.match(r':', pack[1]):
+                            continue
+                        
+                        pack[1] = pack[1].replace('"', '').strip()
+                        if len(pack[1]) < 1:
                             continue
                         
                         timestr = pack[0].replace('[', '')
@@ -56,5 +60,5 @@ class LyricsifyAdapter(UrlAdapter):
                         second = float(time_parts[1])
                         # milisecond = int(second_parts[1])
                         time = str(round((minute * 60) + second, 2))
-                        lyric[time] = pack[1].replace('"', '').strip()
+                        lyric[time] = pack[1]
         return lyric

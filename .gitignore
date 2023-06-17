@@ -5,6 +5,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 export/*
+cmusic/
+content/
 
 # C extensions
 *.so

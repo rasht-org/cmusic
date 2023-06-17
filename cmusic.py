@@ -61,7 +61,7 @@ def additional_prompts():
     shift = input()
     if shift:
         shift = int(shift)
-        project.fps = fps
+        project.frame_shift = shift
             
             
 def save():
@@ -70,7 +70,7 @@ def save():
             os.makedirs('export/')
         file_name = 'export/' + lyric.name.replace(':', '-').replace('.', '-') + '.json'
         with open(file_name, 'w') as file:
-            prompts = lyric.__json__()
+            prompts = lyric.__prompt__()
             transformed_prompts = project.transform(prompts=prompts)
             file.write(json.dumps(transformed_prompts, indent=4, sort_keys=True))
             print('[bold green]Your file is saved at %s[/bold green]' % file_name)

@@ -1,4 +1,5 @@
 from adapters.url_adapter import UrlAdapter
+import json
 
 class Lyric:
     
@@ -42,12 +43,14 @@ class Lyric:
             cleaned_terms.append(term.strip())
         return cleaned_terms
     
-    
-    def __json__(self):
+    def __prompt__(self):
         prompts = {}
         for (index, value) in enumerate(self.positives):
             prompts[value] = self.positives[value] + ' --neg ' + self.negatives[value]
         return prompts
+    
+    def __json__(self):
+        return json.dumps(self.positives, indent=4, sort_keys=False)
         
         
     def __str__(self):
@@ -56,3 +59,6 @@ class Lyric:
     
     def __repr__(self):
         return self.__str__()
+    
+    def __text__(self):
+        return self.positives
