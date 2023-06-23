@@ -30,6 +30,24 @@ Follow prompts in cli to download lyric for your music and convert it into stabl
 
 ![alt text](https://github.com/rasht-org/cmusic/blob/main/sample.png?raw=true)
 
+## Merge video, audio with lyric caption
+
+Put your files in files directory with following names:
+
+- input.mp4
+- input.mp3
+- lyric.json
+
+Run this script to merge them into one clip, You will need to install and configure ImageMagick library first.
+
+```shell
+python lyric_on_video.py
+```
+
+The file will be generated at:
+
+- output.mp4
+
 ## Tested Environment
 
 - Python 3
